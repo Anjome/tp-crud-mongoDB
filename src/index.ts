@@ -15,7 +15,7 @@ const connectDb = async () => {
     }
 }
 
-const salonSchema = new Schema({
+const fiestaSchema = new Schema({
     fecha: { type: Date, required: true },
     nombre: { type: String, requerid: true },
     edad: { type: Number },
@@ -23,9 +23,47 @@ const salonSchema = new Schema({
     Pago: { type: String, requerid: true, enum: ['pendiente', 'señado', 'pagado'], default: 'pendiente' },
 })
 
-const salon = model("salon", salonSchema)
+const fiesta = model("fiesta", fiestaSchema)
 
+const addNewFiesta = async () => {
+    try {
 
+    } catch (error) {
+
+    }
+}
+
+const getFiestas = async () => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+const getFiesta = async (id: string) => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+const updateFiesta = async (id: String) => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+const deleteFiesta = async (id: string) => {
+    try {
+
+    } catch (error) {
+
+    }
+}
 
 
 
