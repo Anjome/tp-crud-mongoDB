@@ -15,4 +15,33 @@ const connectDb = async () => {
     }
 }
 
+const salonSchema = new Schema({
+    fecha: { type: Date, required: true },
+    nombre: { type: String, requerid: true },
+    edad: { type: Number },
+    horario: { type: String, required: true },
+    Pago: { type: String, requerid: true, enum: ['pendiente', 'señado', 'pagado'], default: 'pendiente' },
+})
+
+const salon = model("salon", salonSchema)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 connectDb()
