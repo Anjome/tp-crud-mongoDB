@@ -1,19 +1,8 @@
-
-import { Schema, model, connect } from "mongoose";
+import { connectDb } from "./config/mongo"
+import { Schema, model, } from "mongoose";
 
 process.loadEnvFile
-
-const URI_DB = process.env.URI_DB || ""
-
-const connectDb = async () => {
-    try {
-        await connect(URI_DB)
-        console.log("Conectado a MongoDB")
-    } catch (error) {
-        console.error("Error al conectar a MongoDB")
-
-    }
-}
+connectDb()
 
 interface IFiesta {
     fecha: string,
@@ -25,10 +14,10 @@ interface IFiesta {
 
 const fiestaSchema = new Schema({
     fecha: { type: String, required: true },
-    nombre: { type: String, requerid: true },
+    nombre: { type: String, required: true },
     edad: { type: Number },
     horario: { type: String, required: true },
-    pago: { type: String, requerid: true, default: 'pendiente' },
+    pago: { type: String, required: true, default: 'pendiente' },
 })
 
 const fiesta = model("fiesta", fiestaSchema)
@@ -95,7 +84,7 @@ const deleteFiesta = async (id: string) => {
 
 
 const main = async () => {
-    connectDb()
+    await connectDb()
 
     const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '18hs', pago: "$50.000" })
 
