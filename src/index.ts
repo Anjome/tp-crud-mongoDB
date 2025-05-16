@@ -85,32 +85,28 @@ const updateFiesta = async (id: String, newData: Partial<IFiesta>) => {
 
 const deleteFiesta = async (id: string) => {
     try {
-
-    } catch (error) {
-
+        const deletedFiesta = await fiesta.findByIdAndDelete(id)
+        if (!deletedFiesta)
+            return {
+                succes: false, message: 'Fiesta no encontrada para eliminar'
+            }
+        return { succes: true, data: deletedFiesta, message: 'Fiesta eliminada' }
+    } catch (error: any) {
+        return { succes: false, error: error.message }
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 
 const main = async () => {
     await connectDb()
 
-    //const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '18hs', pago: "$50.000" })
+    const saveFiesta = await addNewFiesta({ fecha: '05/08/25', nombre: 'Bianca Massare', edad: 21, horario: '22hs', pago: "$100.000" })
     //const fiestas = await getFiestas()
     //const fiesta = await getFiesta('6827574158b1ce562a5c27a1')
-    const updatedFiesta = await updateFiesta('6827574158b1ce562a5c27a1', { telefono: '1123-4523' })
-
-    console.log(updatedFiesta);
+    //const updatedFiesta = await updateFiesta('6827574158b1ce562a5c27a1', { telefono: '1123-4523' })
+    const deletedFiesta = await deleteFiesta('68277e9dbb0388a06bb0f7e1')
+    console.log(deletedFiesta)
 }
 
 main()
