@@ -51,9 +51,17 @@ const getFiestas = async () => {
 
 const getFiesta = async (id: string) => {
     try {
-
-    } catch (error) {
-
+        const foundFiesta = await fiesta.findById(id)
+        if (!foundFiesta) {
+            return { succes: false, message: 'Fiesta no encontrada' }
+        }
+        return {
+            succes: true, data: foundFiesta, message: 'Fiesta encontrada'
+        }
+    } catch (error: any) {
+        return {
+            succes: false, error: error.message
+        }
     }
 }
 
@@ -88,8 +96,10 @@ const main = async () => {
     await connectDb()
 
     //const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '18hs', pago: "$50.000" })
-    const fiestas = await getFiestas()
-    console.log(fiestas)
+    //const fiestas = await getFiestas()
+    const fiesta = await getFiesta('6827574158b1ce562a5c27a1')
+
+    console.log(fiesta)
 }
 
 main()
