@@ -42,9 +42,10 @@ const addNewFiesta = async (newFiesta: IFiesta) => {
 
 const getFiestas = async () => {
     try {
-
-    } catch (error) {
-
+        const fiestas = await fiesta.find()
+        return { succes: true, data: fiestas, message: 'Fiestas recuperadas exitosamente' }
+    } catch (error: any) {
+        return { succes: false, error: error.message }
     }
 }
 
@@ -86,9 +87,9 @@ const deleteFiesta = async (id: string) => {
 const main = async () => {
     await connectDb()
 
-    const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '18hs', pago: "$50.000" })
-
-    console.log(saveFiesta)
+    //const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '18hs', pago: "$50.000" })
+    const fiestas = await getFiestas()
+    console.log(fiestas)
 }
 
 main()
