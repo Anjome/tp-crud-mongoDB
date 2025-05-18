@@ -2,7 +2,8 @@ import { connectDb } from "./config/mongo"
 import { Schema, model, } from "mongoose";
 
 process.loadEnvFile
-connectDb()
+
+
 
 interface IFiesta {
     fecha: string,
@@ -31,26 +32,26 @@ const addNewFiesta = async (newFiesta: IFiesta) => {
     try {
         const { fecha, nombre, edad, horario, pago } = newFiesta
         if (!fecha || !nombre || !edad || !horario || !pago) {
-            return { succes: false, error: 'Datos invalidos' }
+            return { success: false, error: 'Datos invalidos' }
         }
         const newFiestaToDb = new fiesta({ fecha, nombre, edad, horario, pago })
         await newFiestaToDb.save()
         return {
-            succes: true,
+            success: true,
             data: newFiestaToDb,
             message: 'Nueva Fiesta'
         }
     } catch (error: any) {
-        return { succes: false, error: error.message }
+        return { success: false, error: error.message }
     }
 }
 
 const getFiestas = async () => {
     try {
         const fiestas = await fiesta.find()
-        return { succes: true, data: fiestas, message: 'Fiestas recuperadas exitosamente' }
+        return { success: true, data: fiestas, message: 'Fiestas recuperadas exitosamente' }
     } catch (error: any) {
-        return { succes: false, error: error.message }
+        return { success: false, error: error.message }
     }
 }
 
@@ -58,14 +59,14 @@ const getFiesta = async (id: string) => {
     try {
         const foundFiesta = await fiesta.findById(id)
         if (!foundFiesta) {
-            return { succes: false, message: 'Fiesta no encontrada' }
+            return { success: false, message: 'Fiesta no encontrada' }
         }
         return {
-            succes: true, data: foundFiesta, message: 'Fiesta encontrada'
+            success: true, data: foundFiesta, message: 'Fiesta encontrada'
         }
     } catch (error: any) {
         return {
-            succes: false, error: error.message
+            success: false, error: error.message
         }
     }
 }
@@ -74,11 +75,11 @@ const updateFiesta = async (id: String, newData: Partial<IFiesta>) => {
     try {
         const updatedFiesta = await fiesta.findByIdAndUpdate(id, newData, { new: true })
         if (!updatedFiesta) {
-            return { succes: false, message: 'Fiesta no encontrada para actualizar' }
+            return { success: false, message: 'Fiesta no encontrada para actualizar' }
         }
-        return { succes: true, data: updatedFiesta, message: 'Fiesta actualizada' }
+        return { success: true, data: updatedFiesta, message: 'Fiesta actualizada' }
     } catch (error: any) {
-        return { succes: false, error: error.message }
+        return { success: false, error: error.message }
 
     }
 }
@@ -88,11 +89,11 @@ const deleteFiesta = async (id: string) => {
         const deletedFiesta = await fiesta.findByIdAndDelete(id)
         if (!deletedFiesta)
             return {
-                succes: false, message: 'Fiesta no encontrada para eliminar'
+                success: false, message: 'Fiesta no encontrada para eliminar'
             }
-        return { succes: true, data: deletedFiesta, message: 'Fiesta eliminada' }
+        return { success: true, data: deletedFiesta, message: 'Fiesta eliminada' }
     } catch (error: any) {
-        return { succes: false, error: error.message }
+        return { success: false, error: error.message }
     }
 }
 
@@ -101,12 +102,13 @@ const deleteFiesta = async (id: string) => {
 const main = async () => {
     await connectDb()
 
-    const saveFiesta = await addNewFiesta({ fecha: '05/08/25', nombre: 'Bianca Massare', edad: 21, horario: '22hs', pago: "$100.000" })
+    //const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '21hs', pago: "$400.000" })
     //const fiestas = await getFiestas()
     //const fiesta = await getFiesta('6827574158b1ce562a5c27a1')
     //const updatedFiesta = await updateFiesta('6827574158b1ce562a5c27a1', { telefono: '1123-4523' })
-    const deletedFiesta = await deleteFiesta('68277e9dbb0388a06bb0f7e1')
+    const deletedFiesta = await deleteFiesta('68277eefa7f057009a80cf17')
     console.log(deletedFiesta)
+
 }
 
 main()
