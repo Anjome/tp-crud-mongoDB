@@ -102,12 +102,12 @@ const deleteFiesta = async (id: string) => {
 const main = async () => {
     await connectDb()
 
-    //const saveFiesta = await addNewFiesta({ fecha: '11/06/25', nombre: 'Horacio Massare', edad: 56, horario: '21hs', pago: "$400.000" })
+    const saveFiesta = await addNewFiesta({ fecha: '22/11/25', nombre: 'Sofia Massare', edad: 18, horario: '22hs', pago: "$300.000" })
     //const fiestas = await getFiestas()
     //const fiesta = await getFiesta('6827574158b1ce562a5c27a1')
     //const updatedFiesta = await updateFiesta('6827574158b1ce562a5c27a1', { telefono: '1123-4523' })
-    const deletedFiesta = await deleteFiesta('68277eefa7f057009a80cf17')
-    console.log(deletedFiesta)
+    //const deletedFiesta = await deleteFiesta('68277eefa7f057009a80cf17')
+    console.log(saveFiesta)
 
 }
 
